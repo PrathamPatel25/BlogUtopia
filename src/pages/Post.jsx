@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 
 export default function Post() {
   const [post, setPost] = useState(null);
+  const [loading, setLoading] = useState(true);
   const { slug } = useParams();
   const navigate = useNavigate();
 
@@ -16,8 +17,10 @@ export default function Post() {
   useEffect(() => {
     if (slug) {
       appwriteService.getPost(slug).then((post) => {
-        if (post) setPost(post);
-        else navigate("/");
+        if (post) {
+          setPost(post);
+          setLoading(false);
+        } else navigate("/");
       });
     } else navigate("/");
   }, [slug, navigate]);
@@ -31,7 +34,19 @@ export default function Post() {
     });
   };
 
-  return post ? (
+  return loading ? (
+    <div className="w-full py-8 mt-4 text-center">
+      <Container>
+        <div className="flex flex-wrap">
+          <div className="p-2 w-full">
+            <h1 className="text-2xl font-bold hover:text-gray-500">
+              Loading...
+            </h1>
+          </div>
+        </div>
+      </Container>
+    </div>
+  ) : post ? (
     <div className="py-8 bg-gray-50">
       <Container>
         <div className="max-w-3xl mx-auto">
