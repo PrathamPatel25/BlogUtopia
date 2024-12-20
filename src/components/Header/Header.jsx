@@ -37,9 +37,9 @@ export default function Header() {
   ];
 
   return (
-    <header className="py-3 shadow bg-gray-500">
+    <header className="py-3 shadow bg-sky-400 text-white">
       <Container>
-        <nav className="flex">
+        <nav className="flex h-11">
           <div className="mr-4">
             <Link to="/">
               <Logo width="70px" />

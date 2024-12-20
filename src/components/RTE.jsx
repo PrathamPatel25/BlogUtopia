@@ -1,9 +1,29 @@
-import React from "react";
-import { Editor } from "@tinymce/tinymce-react";
+import React, { useRef, useEffect } from "react";
 import { Controller } from "react-hook-form";
-import conf from "../conf/conf.js";
+import "quill/dist/quill.snow.css";
+import Quill from "quill";
 
 export default function RTE({ name, control, label, defaultValue = "" }) {
+  const quillRef = useRef(null);
+
+  useEffect(() => {
+    if (!quillRef.current) {
+      quillRef.current = new Quill(`#${name}-editor`, {
+        theme: "snow",
+        modules: {
+          toolbar: [
+            [{ header: [1, 2, 3, false] }],
+            ["bold", "italic", "underline"],
+            ["blockquote", "code-block"],
+            [{ list: "ordered" }, { list: "bullet" }],
+            ["link", "image"],
+            ["clean"],
+          ],
+        },
+      });
+    }
+  }, [name]);
+
   return (
     <div className="w-full">
       {label && <label className="inline-block mb-1 pl-1">{label}</label>}
@@ -11,44 +31,34 @@ export default function RTE({ name, control, label, defaultValue = "" }) {
       <Controller
         name={name || "content"}
         control={control}
-        render={({ field: { onChange } }) => (
-          <Editor
-            apiKey={conf.tinymceApiKey}
-            initialValue={defaultValue}
-            init={{
-              initialValue: defaultValue,
-              height: 500,
-              menubar: true,
-              plugins: [
-                "image",
-                "advlist",
-                "autolink",
-                "lists",
-                "link",
-                "image",
-                "charmap",
-                "preview",
-                "anchor",
-                "searchreplace",
-                "visualblocks",
-                "code",
-                "fullscreen",
-                "insertdatetime",
-                "media",
-                "table",
-                "code",
-                "help",
-                "wordcount",
-                "anchor",
-              ],
-              toolbar:
-                "undo redo | blocks | image | bold italic forecolor | alignleft aligncenter bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent |removeformat | help",
-              content_style:
-                "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
-            }}
-            onEditorChange={onChange}
-          />
-        )}
+        defaultValue={defaultValue}
+        render={({ field: { onChange, value } }) => {
+          useEffect(() => {
+            if (quillRef.current) {
+              quillRef.current.root.innerHTML = value || defaultValue;
+            }
+          }, [value, defaultValue]);
+
+          useEffect(() => {
+            if (quillRef.current) {
+              const handler = () => {
+                onChange(quillRef.current.root.innerHTML);
+              };
+              quillRef.current.on("text-change", handler);
+              return () => {
+                quillRef.current.off("text-change", handler);
+              };
+            }
+          }, [onChange]);
+
+          return (
+            <div
+              id={`${name}-editor`}
+              className="bg-white border rounded-md overflow-auto"
+              style={{ height: "300px" }} // Fixed height
+            />
+          );
+        }}
       />
     </div>
   );

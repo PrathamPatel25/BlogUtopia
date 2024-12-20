@@ -20,7 +20,7 @@ export default function Home() {
           <div className="flex flex-wrap">
             <div className="p-2 w-full">
               <h1 className="text-2xl font-bold hover:text-gray-500">
-                There is no Blogs available right now.
+                Loading...
               </h1>
             </div>
           </div>
@@ -31,9 +31,9 @@ export default function Home() {
   return (
     <div className="w-full py-8">
       <Container>
-        <div className="flex flex-wrap">
+        <div className="flex flex-wrap bg-white">
           {posts.map((post) => (
-            <div key={post.$id} className="p-2 w-1/4">
+            <div key={post.$id} className="p-2 w-1/3 h-5/6">
               <PostCard {...post} />
             </div>
           ))}
