@@ -4,10 +4,26 @@ import authService from "./appwrite/auth";
 import { login, logout } from "./store/authSlice";
 import { Footer, Header } from "./components";
 import { Outlet } from "react-router-dom";
+import { ThemeProvider } from "./context/theme";
 
 function App() {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
+  const [themeMode, setThemeMode] = useState("light");
+
+  const lightTheme = () => {
+    setThemeMode("light");
+  };
+
+  const darkTheme = () => {
+    setThemeMode("dark");
+  };
+
+  // actual change in theme
+  useEffect(() => {
+    document.querySelector("html").classList.remove("light", "dark");
+    document.querySelector("html").classList.add(themeMode);
+  }, [themeMode]);
 
   useEffect(() => {
     authService
@@ -23,15 +39,17 @@ function App() {
   }, []);
 
   return !loading ? (
-    <div className="min-h-screen flex flex-col content-between bg-white">
-      <div className="w-full block">
-        <Header />
-        <main>
-          <Outlet />
-        </main>
-        <Footer />
+    <ThemeProvider value={{ themeMode, lightTheme, darkTheme }}>
+      <div className="min-h-screen flex flex-col content-between bg-white">
+        <div className="w-full block">
+          <Header />
+          <main>
+            <Outlet />
+          </main>
+          <Footer />
+        </div>
       </div>
-    </div>
+    </ThemeProvider>
   ) : (
     <h3>Loading...</h3>
   );

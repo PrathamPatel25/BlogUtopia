@@ -40,19 +40,17 @@ export default function Post() {
   };
 
   return loading ? (
-    <div className="w-full py-8 mt-4 text-center">
+    <div className="w-full py-8 text-center dark:bg-[#0369a1] dark:text-white">
       <Container>
         <div className="flex flex-wrap">
           <div className="p-2 w-full">
-            <h1 className="text-2xl font-bold hover:text-gray-500">
-              Loading...
-            </h1>
+            <h1 className="text-2xl font-bold">Loading...</h1>
           </div>
         </div>
       </Container>
     </div>
   ) : post ? (
-    <div className="py-8 bg-gray-50">
+    <div className="py-8 bg-gray-50 dark:bg-[#0369a1] dark:text-white">
       <Container>
         <div className="flex flex-col md:flex-row gap-6">
           {/* Main Post */}
@@ -65,7 +63,7 @@ export default function Post() {
               />
             </div>
             <div className="flex items-center justify-between mb-4">
-              <p className="text-sm font-medium text-gray-600">
+              <p className="text-sm font-medium text-gray-600 dark:text-white">
                 Author: {post.userId || "Unknown"}
               </p>
               {isAuthor && (
@@ -88,7 +86,7 @@ export default function Post() {
                 </div>
               )}
             </div>
-            <h1 className="text-3xl font-extrabold text-gray-800 mb-4">
+            <h1 className="text-3xl font-extrabold text-gray-800 mb-4 dark:text-white">
               {post.title}
             </h1>
             <div className="prose prose-lg prose-gray">
@@ -98,13 +96,13 @@ export default function Post() {
 
           {/* Other Posts */}
           <div className="w-full md:w-1/3">
-            <div className="bg-white border border-gray-300 rounded-xl shadow-lg max-h-[80vh] overflow-y-scroll overflow-x-hidden scrollbar-hidden">
+            <div className="bg-white border border-gray-300 rounded-xl shadow-lg max-h-[80vh] overflow-y-scroll overflow-x-hidden scrollbar-hidden dark:bg-[#0ea5e9] dark:text-white dark:border-black">
               {otherPosts && otherPosts.length > 0 ? (
                 otherPosts.map((otherPost, index) => (
                   <Link
                     key={index}
                     to={`/post/${otherPost.$id}`}
-                    className="flex items-center space-x-4 p-4 border-b last:border-none hover:bg-gray-100"
+                    className="flex items-center space-x-4 p-4 border-b last:border-none hover:bg-gray-100 dark:hover:bg-transparent border-b-black"
                   >
                     <img
                       src={appwriteService.getFilePreview(
@@ -114,14 +112,14 @@ export default function Post() {
                       className="w-24 h-24 object-cover rounded-lg"
                     />
                     <div className="flex-1">
-                      <h3 className="text-lg font-semibold text-gray-800 overflow-hidden line-clamp-2">
+                      <h3 className="text-lg font-semibold text-gray-800 overflow-hidden line-clamp-2 dark:text-white">
                         {otherPost.title}
                       </h3>
                     </div>
                   </Link>
                 ))
               ) : (
-                <div className="p-4 text-gray-500 text-center">
+                <div className="p-4 text-gray-500 text-center dark:bg-[#0ea5e9] dark:text-white">
                   No other posts available.
                 </div>
               )}

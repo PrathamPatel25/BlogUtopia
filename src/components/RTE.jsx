@@ -47,7 +47,11 @@ export default function RTE({ name, control, label, defaultValue = "" }) {
             modules={modules}
             formats={formats}
             className="bg-white rounded-md"
-            style={{ height: "600px", maxHeight: "80vh" }}
+            style={{
+              height: "600px",
+              maxHeight: "80vh",
+              color: "black",
+            }}
           />
         )}
       />

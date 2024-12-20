@@ -17,13 +17,11 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="w-full py-8 mt-4 text-center">
+    <div className="w-full mt-0 pt-2 text-center dark:text-white dark:bg-[#0369a1]">
       <Container>
         <div className="flex flex-wrap">
           <div className="p-2 w-full">
-            <h1 className="text-2xl font-bold hover:text-gray-500">
-              Welcome to BlogUtopia
-            </h1>
+            <h1 className="text-2xl font-bold">Welcome to BlogUtopia</h1>
           </div>
         </div>
       </Container>

@@ -16,13 +16,13 @@ export default function AllPosts() {
   }, []);
 
   return loading ? (
-    <div className="w-full py-8 mt-4 text-center">
+    <div className="w-full py-8 text-center dark:bg-[#0369a1] dark:text-white">
       <Container>
-        <h1 className="text-2xl font-bold hover:text-gray-500">Loading...</h1>
+        <h1 className="text-2xl font-bold">Loading...</h1>
       </Container>
     </div>
   ) : (
-    <div className="w-full py-8">
+    <div className="w-full py-8 dark:bg-[#0369a1] dark:text-white">
       <Container>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {posts.map((post) => (

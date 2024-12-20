@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
+import ThemeBtn from "../ThemeBtn";
 
 export default function Header() {
   const authStatus = useSelector((state) => state.auth.status);
@@ -34,6 +35,11 @@ export default function Header() {
     {
       name: "Add Post",
       slug: "/add-post",
+      active: authStatus,
+    },
+    {
+      name: "Your Place",
+      slug: "/profile",
       active: authStatus,
     },
   ];
@@ -102,6 +108,9 @@ export default function Header() {
                   <LogoutBtn />
                 </li>
               )}
+              <li>
+                <ThemeBtn />
+              </li>
             </div>
           </ul>
         </nav>

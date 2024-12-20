@@ -63,13 +63,11 @@ export default function PostForm({ post }) {
     <div className="flex flex-col min-h-screen">
       {/* Loading State */}
       {loading ? (
-        <div className="w-full py-8 mt-4 text-center flex-grow">
+        <div className="w-full py-8 text-center flex-grow dark:bg-[#0369a1] dark:text-white">
           <Container>
             <div className="flex flex-wrap">
               <div className="p-2 w-full">
-                <h1 className="text-2xl font-bold hover:text-gray-500">
-                  Loading...
-                </h1>
+                <h1 className="text-2xl font-bold ">Loading...</h1>
               </div>
             </div>
           </Container>
@@ -79,7 +77,7 @@ export default function PostForm({ post }) {
           onSubmit={handleSubmit(submit)}
           className="flex flex-wrap w-full flex-grow"
         >
-          <div className="w-full sm:w-2/3 px-2">
+          <div className="w-full sm:w-2/3 px-2 ">
             <Input
               label="Title :"
               placeholder="Title"
