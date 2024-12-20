@@ -14,7 +14,7 @@ export class Service {
     this.storage = new Storage(this.client);
   }
 
-  async createPost({ title, slug, content, featuredImage, status, userId }) {
+  async createPost({ title, postid, content, featuredImage, status, userId }) {
     try {
       return await this.databases.createDocument(
         conf.appwriteDatabaseId,
@@ -33,12 +33,12 @@ export class Service {
     }
   }
 
-  async updatePost(postId, { title, content, featuredImage, status }) {
+  async updatePost(postid, { title, content, featuredImage, status }) {
     try {
       return await this.databases.updateDocument(
         conf.appwriteDatabaseId,
         conf.appwriteCollectionId,
-        postId,
+        postid,
         {
           title,
           content,
@@ -51,12 +51,12 @@ export class Service {
     }
   }
 
-  async deletePost(postId) {
+  async deletePost(postid) {
     try {
       await this.databases.deleteDocument(
         conf.appwriteDatabaseId,
         conf.appwriteCollectionId,
-        postId
+        postid
       );
       return true;
     } catch (error) {
@@ -65,12 +65,12 @@ export class Service {
     }
   }
 
-  async getPost(postId) {
+  async getPost(postid) {
     try {
       return await this.databases.getDocument(
         conf.appwriteDatabaseId,
         conf.appwriteCollectionId,
-        postId
+        postid
       );
     } catch (error) {
       console.log("Appwrite serive :: getPost :: error", error);
@@ -91,9 +91,9 @@ export class Service {
     }
   }
 
-  async getOtherPosts(slug, queries = []) {
+  async getOtherPosts(postid, queries = []) {
     try {
-      queries.push(Query.notEqual("$id", slug));
+      queries.push(Query.notEqual("$id", postid));
       queries.push(Query.equal("status", "active"));
       return await this.databases.listDocuments(
         conf.appwriteDatabaseId,
@@ -101,7 +101,7 @@ export class Service {
         queries
       );
     } catch (error) {
-      console.log(slug);
+      console.log(postid);
       console.log("Appwrite service :: getOtherPosts :: error", error);
       return false;
     }

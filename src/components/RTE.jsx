@@ -1,28 +1,34 @@
-import React, { useRef, useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { Controller } from "react-hook-form";
-import "quill/dist/quill.snow.css";
-import Quill from "quill";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+
+const modules = {
+  toolbar: [
+    [{ header: [1, 2, 3, false] }],
+    ["bold", "italic", "underline"],
+    ["blockquote", "code-block"],
+    [{ list: "ordered" }, { list: "bullet" }],
+    ["link", "image"],
+    ["clean"],
+  ],
+};
+
+const formats = [
+  "header",
+  "bold",
+  "italic",
+  "underline",
+  "blockquote",
+  "code-block",
+  "list",
+  "bullet",
+  "link",
+  "image",
+];
 
 export default function RTE({ name, control, label, defaultValue = "" }) {
   const quillRef = useRef(null);
-
-  useEffect(() => {
-    if (!quillRef.current) {
-      quillRef.current = new Quill(`#${name}-editor`, {
-        theme: "snow",
-        modules: {
-          toolbar: [
-            [{ header: [1, 2, 3, false] }],
-            ["bold", "italic", "underline"],
-            ["blockquote", "code-block"],
-            [{ list: "ordered" }, { list: "bullet" }],
-            ["link", "image"],
-            ["clean"],
-          ],
-        },
-      });
-    }
-  }, [name]);
 
   return (
     <div className="w-full">
@@ -32,33 +38,18 @@ export default function RTE({ name, control, label, defaultValue = "" }) {
         name={name || "content"}
         control={control}
         defaultValue={defaultValue}
-        render={({ field: { onChange, value } }) => {
-          useEffect(() => {
-            if (quillRef.current) {
-              quillRef.current.root.innerHTML = value || defaultValue;
-            }
-          }, [value, defaultValue]);
-
-          useEffect(() => {
-            if (quillRef.current) {
-              const handler = () => {
-                onChange(quillRef.current.root.innerHTML);
-              };
-              quillRef.current.on("text-change", handler);
-              return () => {
-                quillRef.current.off("text-change", handler);
-              };
-            }
-          }, [onChange]);
-
-          return (
-            <div
-              id={`${name}-editor`}
-              className="bg-white border rounded-md overflow-auto"
-              style={{ height: "300px", maxHeight: "80vh" }}
-            />
-          );
-        }}
+        render={({ field: { onChange, value } }) => (
+          <ReactQuill
+            ref={quillRef}
+            theme="snow"
+            value={value || defaultValue}
+            onChange={onChange}
+            modules={modules}
+            formats={formats}
+            className="bg-white rounded-md"
+            style={{ height: "600px", maxHeight: "80vh" }}
+          />
+        )}
       />
     </div>
   );

@@ -9,32 +9,32 @@ export default function Post() {
   const [post, setPost] = useState(null);
   const [otherPosts, setOtherPosts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { slug } = useParams();
+  const { postid } = useParams();
   const navigate = useNavigate();
 
   const userData = useSelector((state) => state.auth.userData);
   const isAuthor = post && userData ? post.userId === userData.$id : false;
 
   useEffect(() => {
-    if (slug) {
-      appwriteService.getPost(slug).then((post) => {
+    if (postid) {
+      appwriteService.getPost(postid).then((post) => {
         if (post) {
           setPost(post);
         } else navigate("/");
       });
 
-      appwriteService.getOtherPosts(slug).then((posts) => {
+      appwriteService.getOtherPosts(postid).then((posts) => {
         setOtherPosts(posts.documents);
         setLoading(false);
       });
     } else navigate("/");
-  }, [slug, navigate]);
+  }, [postid, navigate]);
 
   const deletePost = () => {
     appwriteService.deletePost(post.$id).then((status) => {
       if (status) {
         appwriteService.deleteFile(post.featuredImage);
-        navigate("/");
+        navigate("/all-posts");
       }
     });
   };

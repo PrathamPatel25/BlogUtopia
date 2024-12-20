@@ -8,15 +8,13 @@ import { Container } from "..";
 
 export default function PostForm({ post }) {
   const [loading, setLoading] = useState(true);
-  const { register, handleSubmit, watch, setValue, control, getValues } =
-    useForm({
-      defaultValues: {
-        title: post?.title || "",
-        slug: post?.$id || "",
-        content: post?.content || "",
-        status: post?.status || "active",
-      },
-    });
+  const { register, handleSubmit, watch, control, getValues } = useForm({
+    defaultValues: {
+      title: post?.title || "",
+      content: post?.content || "",
+      status: post?.status || "active",
+    },
+  });
 
   const navigate = useNavigate();
   const userData = useSelector((state) => state.auth.userData);
@@ -61,26 +59,6 @@ export default function PostForm({ post }) {
     }
   };
 
-  const slugTransform = useCallback((value) => {
-    if (value && typeof value === "string")
-      return value
-        .trim()
-        .toLowerCase()
-        .replace(/[^a-zA-Z\d\s]+/g, "-")
-        .replace(/\s/g, "-");
-
-    return "";
-  }, []);
-
-  React.useEffect(() => {
-    const subscription = watch((value, { name }) => {
-      if (name === "title") {
-        setValue("slug", slugTransform(value.title), { shouldValidate: true });
-      }
-    });
-    return () => subscription.unsubscribe();
-  }, [watch, slugTransform, setValue]);
-
   return (
     <div className="flex flex-col min-h-screen">
       {/* Loading State */}
@@ -107,17 +85,6 @@ export default function PostForm({ post }) {
               placeholder="Title"
               className="mb-4"
               {...register("title", { required: true })}
-            />
-            <Input
-              label="Slug :"
-              placeholder="Slug"
-              className="mb-4"
-              {...register("slug", { required: true })}
-              onInput={(e) => {
-                setValue("slug", slugTransform(e.currentTarget.value), {
-                  shouldValidate: true,
-                });
-              }}
             />
             <RTE
               label="Content :"
