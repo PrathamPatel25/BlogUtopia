@@ -33,12 +33,12 @@ export class Service {
     }
   }
 
-  async updatePost(slug, { title, content, featuredImage, status }) {
+  async updatePost(postId, { title, content, featuredImage, status }) {
     try {
       return await this.databases.updateDocument(
         conf.appwriteDatabaseId,
         conf.appwriteCollectionId,
-        ID.unique(),
+        postId,
         {
           title,
           content,
@@ -51,12 +51,12 @@ export class Service {
     }
   }
 
-  async deletePost(slug) {
+  async deletePost(postId) {
     try {
       await this.databases.deleteDocument(
         conf.appwriteDatabaseId,
         conf.appwriteCollectionId,
-        ID.unique()
+        postId
       );
       return true;
     } catch (error) {
@@ -65,12 +65,12 @@ export class Service {
     }
   }
 
-  async getPost(slug) {
+  async getPost(postId) {
     try {
       return await this.databases.getDocument(
         conf.appwriteDatabaseId,
         conf.appwriteCollectionId,
-        ID.unique()
+        postId
       );
     } catch (error) {
       console.log("Appwrite serive :: getPost :: error", error);
