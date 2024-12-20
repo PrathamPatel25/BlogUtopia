@@ -39,7 +39,7 @@ export default function Header() {
   ];
 
   return (
-    <header className="py-3 shadow bg-sky-400 text-white h-16 z-50 relative">
+    <header className="py-3 shadow bg-sky-400 text-white h-16">
       <Container>
         <nav className="flex items-center justify-between">
           {/* Logo */}
@@ -51,29 +51,35 @@ export default function Header() {
 
           {/* Hamburger Icon */}
           <div className="block md:hidden">
-            <button onClick={() => setMenuOpen(true)} aria-label="Menu">
-              <AiOutlineMenu className="text-2xl" />
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="relative z-20"
+              aria-label="Menu"
+            >
+              {menuOpen ? (
+                <AiOutlineClose className="text-2xl" />
+              ) : (
+                <AiOutlineMenu className="text-2xl" />
+              )}
             </button>
           </div>
 
+          {/* Mobile Menu Overlay */}
+          {menuOpen && (
+            <div
+              className="md:hidden fixed inset-0 bg-black bg-opacity-50"
+              onClick={() => setMenuOpen(false)}
+              style={{ zIndex: 10 }}
+            />
+          )}
+
           {/* Navigation Links */}
           <ul
-            className={`fixed top-0 right-0 h-full bg-sky-400 shadow-lg transform ${
+            className={`fixed top-0 right-0 h-screen md:h-auto bg-sky-400 shadow-lg transform ${
               menuOpen ? "translate-x-0" : "translate-x-full"
-            } transition-transform duration-300 ease-in-out w-64 z-50 md:w-auto md:static md:flex md:translate-x-0 md:bg-transparent`}
+            } transition-transform duration-300 ease-in-out w-64 md:w-auto md:static md:flex md:translate-x-0 md:bg-transparent md:shadow-none`}
+            style={{ zIndex: 15 }}
           >
-            {/* Close Button */}
-            <div className="flex justify-end p-4 md:hidden">
-              <button
-                onClick={() => setMenuOpen(false)}
-                aria-label="Close Menu"
-                className="text-white text-2xl"
-              >
-                <AiOutlineClose />
-              </button>
-            </div>
-
-            {/* Links */}
             <div className="flex flex-col md:flex-row md:items-center md:space-x-4 md:ml-auto h-full p-4 md:p-0">
               {navItems.map(
                 (item) =>
@@ -84,7 +90,7 @@ export default function Header() {
                           setMenuOpen(false);
                           navigate(item.slug);
                         }}
-                        className="inline-block px-6 py-2 duration-200 hover:bg-blue-100 rounded-full md:text-white"
+                        className="inline-block px-6 py-2 duration-200 hover:bg-blue-100 rounded-full md:text-white md:hover:bg-white/20"
                       >
                         {item.name}
                       </button>
