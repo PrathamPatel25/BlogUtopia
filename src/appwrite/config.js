@@ -19,7 +19,7 @@ export class Service {
       return await this.databases.createDocument(
         conf.appwriteDatabaseId,
         conf.appwriteCollectionId,
-        slug,
+        ID.unique(),
         {
           title,
           content,
@@ -38,7 +38,7 @@ export class Service {
       return await this.databases.updateDocument(
         conf.appwriteDatabaseId,
         conf.appwriteCollectionId,
-        slug,
+        ID.unique(),
         {
           title,
           content,
@@ -56,7 +56,7 @@ export class Service {
       await this.databases.deleteDocument(
         conf.appwriteDatabaseId,
         conf.appwriteCollectionId,
-        slug
+        ID.unique()
       );
       return true;
     } catch (error) {
@@ -70,7 +70,7 @@ export class Service {
       return await this.databases.getDocument(
         conf.appwriteDatabaseId,
         conf.appwriteCollectionId,
-        slug
+        ID.unique()
       );
     } catch (error) {
       console.log("Appwrite serive :: getPost :: error", error);
