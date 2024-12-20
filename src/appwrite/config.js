@@ -91,6 +91,22 @@ export class Service {
     }
   }
 
+  async getOtherPosts(slug, queries = []) {
+    try {
+      queries.push(Query.notEqual("$id", slug));
+      queries.push(Query.equal("status", "active"));
+      return await this.databases.listDocuments(
+        conf.appwriteDatabaseId,
+        conf.appwriteCollectionId,
+        queries
+      );
+    } catch (error) {
+      console.log(slug);
+      console.log("Appwrite service :: getOtherPosts :: error", error);
+      return false;
+    }
+  }
+
   // file upload service
 
   async uploadFile(file) {

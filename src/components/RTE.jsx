@@ -55,7 +55,7 @@ export default function RTE({ name, control, label, defaultValue = "" }) {
             <div
               id={`${name}-editor`}
               className="bg-white border rounded-md overflow-auto"
-              style={{ height: "300px" }} // Fixed height
+              style={{ height: "300px", maxHeight: "80vh" }}
             />
           );
         }}

@@ -28,7 +28,7 @@ export default function PostForm({ post }) {
   const submit = async (data) => {
     if (post) {
       const file = data.image[0]
-        ? await appwriteService.uploadFile(data.image[0]) ///////
+        ? await appwriteService.uploadFile(data.image[0])
         : null;
 
       if (file) {
@@ -44,7 +44,7 @@ export default function PostForm({ post }) {
         navigate(`/post/${dbPost.$id}`);
       }
     } else {
-      const file = await appwriteService.uploadFile(data.image[0]); //////
+      const file = await appwriteService.uploadFile(data.image[0]);
 
       if (file) {
         const fileId = file.$id;
@@ -99,9 +99,9 @@ export default function PostForm({ post }) {
       ) : (
         <form
           onSubmit={handleSubmit(submit)}
-          className="flex flex-wrap flex-grow"
+          className="flex flex-wrap w-full flex-grow"
         >
-          <div className="w-2/3 px-2">
+          <div className="w-full sm:w-2/3 px-2">
             <Input
               label="Title :"
               placeholder="Title"
@@ -126,7 +126,7 @@ export default function PostForm({ post }) {
               defaultValue={getValues("content")}
             />
           </div>
-          <div className="w-1/3 px-2">
+          <div className="w-full sm:w-1/3 px-2">
             <Input
               label="Featured Image :"
               type="file"
@@ -139,7 +139,7 @@ export default function PostForm({ post }) {
                 <img
                   src={appwriteService.getFilePreview(post.featuredImage)}
                   alt={post.title}
-                  className="rounded-lg"
+                  className="rounded-lg w-full"
                 />
               </div>
             )}
