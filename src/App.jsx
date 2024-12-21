@@ -5,6 +5,7 @@ import { login, logout } from "./store/authSlice";
 import { Footer, Header } from "./components";
 import { Outlet } from "react-router-dom";
 import { ThemeProvider } from "./context/theme";
+import Loader from "./pages/Loader";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -51,7 +52,7 @@ function App() {
       </div>
     </ThemeProvider>
   ) : (
-    <h3>Loading...</h3>
+    <Loader />
   );
 }
 

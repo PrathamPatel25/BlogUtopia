@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
 import appwriteService from "../appwrite/config";
 import { Container, PostCard } from "../components";
+import Loader from "./Loader";
 
 function Profile() {
   const [posts, setPosts] = useState(null);
@@ -27,11 +28,7 @@ function Profile() {
   }, [userId]);
 
   return loading ? (
-    <div className="w-full py-8 text-center dark:bg-[#0369a1] dark:text-white">
-      <Container>
-        <h1 className="text-2xl font-bold hover:text-gray-500">Loading...</h1>
-      </Container>
-    </div>
+    <Loader />
   ) : (
     <div className="w-full py-8 dark:bg-[#0369a1] dark:text-white">
       <section className="text-center mb-8">

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, PostCard } from "../components";
 import appwriteService from "../appwrite/config";
+import Loader from "./Loader";
 
 export default function AllPosts() {
   const [posts, setPosts] = useState([]);
@@ -16,11 +17,7 @@ export default function AllPosts() {
   }, []);
 
   return loading ? (
-    <div className="w-full py-8 text-center dark:bg-[#0369a1] dark:text-white">
-      <Container>
-        <h1 className="text-2xl font-bold">Loading...</h1>
-      </Container>
-    </div>
+    <Loader />
   ) : (
     <div className="w-full py-8 dark:bg-[#0369a1] dark:text-white">
       <Container>

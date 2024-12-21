@@ -4,7 +4,7 @@ import { Button, Input, RTE, Select } from "..";
 import appwriteService from "../../appwrite/config";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Container } from "..";
+import Loader from "../../pages/Loader";
 
 export default function PostForm({ post }) {
   const [loading, setLoading] = useState(true);
@@ -63,15 +63,7 @@ export default function PostForm({ post }) {
     <div className="flex flex-col min-h-screen">
       {/* Loading State */}
       {loading ? (
-        <div className="w-full py-8 text-center flex-grow dark:bg-[#0369a1] dark:text-white">
-          <Container>
-            <div className="flex flex-wrap">
-              <div className="p-2 w-full">
-                <h1 className="text-2xl font-bold ">Loading...</h1>
-              </div>
-            </div>
-          </Container>
-        </div>
+        <Loader />
       ) : (
         <form
           onSubmit={handleSubmit(submit)}

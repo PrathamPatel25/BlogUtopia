@@ -4,6 +4,7 @@ import appwriteService from "../appwrite/config";
 import { Button, Container } from "../components";
 import parse from "html-react-parser";
 import { useSelector } from "react-redux";
+import Loader from "./Loader";
 
 export default function Post() {
   const [post, setPost] = useState(null);
@@ -40,15 +41,7 @@ export default function Post() {
   };
 
   return loading ? (
-    <div className="w-full py-8 text-center dark:bg-[#0369a1] dark:text-white">
-      <Container>
-        <div className="flex flex-wrap">
-          <div className="p-2 w-full">
-            <h1 className="text-2xl font-bold">Loading...</h1>
-          </div>
-        </div>
-      </Container>
-    </div>
+    <Loader />
   ) : post ? (
     <div className="py-8 bg-gray-50 dark:bg-[#0369a1] dark:text-white">
       <Container>
