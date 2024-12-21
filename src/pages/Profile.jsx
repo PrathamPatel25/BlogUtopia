@@ -8,12 +8,16 @@ function Profile() {
   const [loading, setLoading] = useState(true);
 
   const userData = useSelector((state) => state.auth.userData);
-  const userId = userData.$id;
+  const userId = userData?.$id;
 
   useEffect(() => {
-    appwriteService.getPosts().then((response) => {
-      if (response && response.documents) {
-        const filteredPosts = response.documents.filter(
+    if (!userId) {
+      setLoading(false);
+      return;
+    }
+    appwriteService.getPosts().then((posts) => {
+      if (posts?.documents) {
+        const filteredPosts = posts.documents.filter(
           (post) => post.userId === userId
         );
         setPosts(filteredPosts);
@@ -38,7 +42,7 @@ function Profile() {
       </section>
       <Container>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {posts.length > 0 ? (
+          {posts && posts.length > 0 ? (
             posts.map((post) => <PostCard key={post.$id} {...post} />)
           ) : (
             <h1 className="text-3xl font-semibold text-gray-800 mb-4 dark:bg-[#0369a1] dark:text-white">
