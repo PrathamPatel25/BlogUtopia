@@ -16,6 +16,7 @@ import Post from "./pages/Post";
 
 import AllPosts from "./pages/AllPosts";
 import Profile from "./pages/Profile.jsx";
+import NotFound from "./pages/NotFound.jsx";
 
 const router = createBrowserRouter([
   {
@@ -76,6 +77,10 @@ const router = createBrowserRouter([
       {
         path: "post/:postid",
         element: <Post />,
+      },
+      {
+        path: "*",
+        element: <NotFound />,
       },
     ],
   },
