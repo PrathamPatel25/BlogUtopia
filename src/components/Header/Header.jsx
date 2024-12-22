@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Logo, LogoutBtn } from "../index";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -44,8 +44,21 @@ export default function Header() {
     },
   ];
 
+  // Disable body scroll when menu is open
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto"; // Cleanup on component unmount
+    };
+  }, [menuOpen]);
+
   return (
-    <header className="py-3 shadow bg-sky-400 text-white h-16">
+    <header className="py-3 shadow text-white h-16">
       <Container>
         <nav className="flex items-center justify-between">
           {/* Logo */}
@@ -81,8 +94,8 @@ export default function Header() {
 
           {/* Navigation Links */}
           <ul
-            className={`fixed top-0 right-0 h-screen md:h-auto bg-sky-400 shadow-lg transform ${
-              menuOpen ? "translate-x-0" : "translate-x-full"
+            className={`fixed top-0 right-0 h-screen md:h-auto bg-slate-500 shadow-lg transform ${
+              menuOpen ? "translate-x-0 dark:bg-blue-500" : "translate-x-full"
             } transition-transform duration-300 ease-in-out w-64 md:w-auto md:static md:flex md:translate-x-0 md:bg-transparent md:shadow-none`}
             style={{ zIndex: 15 }}
           >
