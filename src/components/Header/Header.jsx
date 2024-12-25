@@ -58,7 +58,7 @@ export default function Header() {
   }, [menuOpen]);
 
   return (
-    <header className="py-3 shadow text-white h-16">
+    <header className="py-3 shadow text-black dark:text-white h-16">
       <Container>
         <nav className="flex items-center justify-between">
           {/* Logo */}
@@ -94,8 +94,10 @@ export default function Header() {
 
           {/* Navigation Links */}
           <ul
-            className={`fixed top-0 right-0 h-screen md:h-auto bg-slate-500 shadow-lg transform ${
-              menuOpen ? "translate-x-0 dark:bg-blue-500" : "translate-x-full"
+            className={`fixed top-0 right-0 h-screen md:h-auto bg-slate-100 shadow-lg transform ${
+              menuOpen
+                ? "translate-x-0 dark:bg-slate-900"
+                : "translate-x-full dark:bg-transparent"
             } transition-transform duration-300 ease-in-out w-64 md:w-auto md:static md:flex md:translate-x-0 md:bg-transparent md:shadow-none`}
             style={{ zIndex: 15 }}
           >
@@ -109,7 +111,7 @@ export default function Header() {
                           setMenuOpen(false);
                           navigate(item.slug);
                         }}
-                        className="inline-block px-6 py-2 duration-200 hover:bg-blue-100 rounded-full md:text-white md:hover:bg-white/20"
+                        className="inline-block px-6 py-2 duration-200 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-full text-black dark:text-white"
                       >
                         {item.name}
                       </button>

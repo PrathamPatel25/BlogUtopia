@@ -4,7 +4,6 @@ import gridImage from "../img/grid.jpg";
 const Grid = ({ children }) => {
   return (
     <div className="relative min-h-screen w-full">
-      {/* Grid Background */}
       <div className="fixed inset-0">
         <div className="h-full w-full">
           <img
@@ -14,12 +13,11 @@ const Grid = ({ children }) => {
             style={{ minHeight: "100vh", minWidth: "100vw" }}
           />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-300/90 to-slate-600/95 dark:from-blue-500/80 dark:to-blue-900/95" />
+        <div className="absolute inset-0 bg-gradient-to-r from-white to-white dark:from-slate-900/85 dark:to-slate-900/95" />
+        {/* <div className="absolute inset-0 bg-gradient-to-r dark:from-slate-900/90 dark:to-slate-900/95 bg-white" /> */}
       </div>
 
-      {/* Content container */}
-      <div className="relative z-10 w-full pt-16">{children}</div>
-      {/* Added 'pt-16' to ensure content is pushed below the header */}
+      <div className="relative z-10 w-full">{children}</div>
     </div>
   );
 };

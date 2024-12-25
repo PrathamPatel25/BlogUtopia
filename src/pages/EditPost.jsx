@@ -20,7 +20,7 @@ export default function EditPost() {
     }
   }, [postid, navigate]);
   return post ? (
-    <div className="py-8 dark:bg-[#0369a1] dark:text-white">
+    <div className="dark:bg-[#0369a1] dark:text-white">
       <Container>
         <PostForm post={post} />
       </Container>

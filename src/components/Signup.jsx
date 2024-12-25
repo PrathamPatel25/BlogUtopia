@@ -32,16 +32,16 @@ function Signup() {
   return (
     <Grid>
       <div className="flex items-center justify-center w-full min-h-screen">
-        <div className="mx-auto w-full max-w-lg bg-white rounded-xl p-10 shadow-lg">
+        <div className="mx-auto w-full max-w-lg bg-slate-200 dark:bg-slate-500 rounded-xl p-10 shadow-lg">
           <div className="mb-2 flex justify-center">
             <span className="inline-block w-full max-w-[100px]">
               <Logo width="100%" />
             </span>
           </div>
-          <h2 className="text-center text-2xl font-bold">
+          <h2 className="text-center text-2xl font-bold dark:text-white">
             Sign up to create an account
           </h2>
-          <p className="mt-2 text-center text-base text-gray-500">
+          <p className="mt-2 text-center text-base text-gray-500 dark:text-white">
             Already have an account?{" "}
             <Link
               to="/login"

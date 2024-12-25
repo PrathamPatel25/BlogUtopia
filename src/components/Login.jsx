@@ -30,7 +30,7 @@ function Login() {
   return (
     <Grid>
       <div className="flex items-center justify-center w-full min-h-screen">
-        <div className="mx-auto w-full max-w-lg bg-white dark:bg-slate-800 rounded-xl p-10 shadow-lg backdrop-blur-sm bg-opacity-80 dark:bg-opacity-80">
+        <div className="mx-auto w-full max-w-lg bg-slate-200 dark:bg-slate-500 rounded-xl p-10 shadow-lg backdrop-blur-sm bg-opacity-80 dark:bg-opacity-80">
           <div className="mb-2 flex justify-center">
             <span className="inline-block w-full max-w-[100px]">
               <Logo width="100%" />

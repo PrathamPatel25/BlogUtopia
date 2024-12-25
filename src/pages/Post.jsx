@@ -46,7 +46,7 @@ export default function Post() {
       {loading ? (
         <Loader />
       ) : post ? (
-        <div className="py-8 dark:bg-transparent dark:text-white">
+        <div className="dark:bg-transparent dark:text-white">
           <Container>
             <div className="flex flex-col md:flex-row gap-6">
               {/* Main Post */}
@@ -92,13 +92,13 @@ export default function Post() {
 
               {/* Other Posts */}
               <div className="w-full md:w-1/3">
-                <div className=" border border-gray-300 rounded-xl shadow-lg max-h-[80vh] overflow-y-scroll overflow-x-hidden scrollbar-hidden text-white dark:text-black">
+                <div className=" border border-gray-300 rounded-xl shadow-lg max-h-[80vh] overflow-y-scroll overflow-x-hidden scrollbar-hidde dark:text-black">
                   {otherPosts && otherPosts.length > 0 ? (
                     otherPosts.map((otherPost, index) => (
                       <Link
                         key={index}
                         to={`/post/${otherPost.$id}`}
-                        className="flex items-center space-x-4 p-4 border-b last:border-none hover:bg-slate-400 border-white dark:hover:bg-blue-400"
+                        className="flex items-center space-x-4 p-4 border-b last:border-none hover:bg-slate-100 border-white dark:hover:bg-blue-500"
                       >
                         <img
                           src={appwriteService.getFilePreview(
@@ -108,7 +108,7 @@ export default function Post() {
                           className="w-24 h-24 object-cover rounded-lg"
                         />
                         <div className="flex-1">
-                          <h3 className="text-lg font-semibold text-white overflow-hidden line-clamp-2 ">
+                          <h3 className="text-lg font-semibold text-black dark:text-white overflow-hidden line-clamp-2 ">
                             {otherPost.title}
                           </h3>
                         </div>
