@@ -91,6 +91,20 @@ export class Service {
     }
   }
 
+  async getUserPosts(userId) {
+    try {
+      const queries = [Query.equal("userId", userId)];
+      return await this.databases.listDocuments(
+        conf.appwriteDatabaseId,
+        conf.appwriteCollectionId,
+        queries
+      );
+    } catch (error) {
+      console.log("Appwrite serive :: getPosts :: error", error);
+      return false;
+    }
+  }
+
   async getOtherPosts(postid, queries = []) {
     try {
       queries.push(Query.notEqual("$id", postid));
