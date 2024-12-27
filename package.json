@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.5.0",
+    "@splinetool/react-spline": "^4.0.0",
+    "@splinetool/runtime": "^1.9.54",
     "appwrite": "^16.0.2",
     "gsap": "^3.12.5",
     "html-react-parser": "^5.2.1",
