@@ -5,7 +5,7 @@ import Logo from "../Logo";
 
 export default function Footer() {
   return (
-    <section className="relative py-8 sm:py-10 bg-sky-200 w-full dark:bg-slate-900 dark:text-white mt-20">
+    <section className="relative py-8 sm:py-10 bg-sky-200 w-full dark:bg-slate-900 dark:text-white">
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6">
         <div className="flex flex-col sm:flex-row flex-wrap -mx-4">
           {/* Logo and Copyright Section */}

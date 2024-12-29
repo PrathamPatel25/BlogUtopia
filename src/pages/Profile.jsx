@@ -50,7 +50,7 @@ function Profile() {
 
   return (
     <Grid>
-      <div className="w-full px-4 sm:px-6 lg:px-8">
+      <div className="w-full px-4 sm:px-6 lg:px-8 mb-10">
         <section className="text-center mb-8">
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-black dark:text-white mb-4">
             Your Posts

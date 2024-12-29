@@ -14,7 +14,6 @@ const Grid = ({ children }) => {
           />
         </div>
         <div className="absolute inset-0 bg-gradient-to-r from-white to-white dark:from-slate-900/85 dark:to-slate-900/95" />
-        {/* <div className="absolute inset-0 bg-gradient-to-r dark:from-slate-900/90 dark:to-slate-900/95 bg-white" /> */}
       </div>
 
       <div className="relative z-10 w-full">{children}</div>
