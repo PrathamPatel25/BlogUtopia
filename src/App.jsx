@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
 import authService from "./appwrite/auth";
 import { login, logout } from "./store/authSlice";
 import { Footer, Header } from "./components";
@@ -11,6 +12,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const [themeMode, setThemeMode] = useState("light");
+  const location = useLocation();
 
   const lightTheme = () => {
     setThemeMode("light");
@@ -38,15 +40,18 @@ function App() {
       .finally(() => setLoading(false));
   }, []);
 
+  const excludedPaths = ["/login", "/signup"];
+  const shouldExcludeLayout = excludedPaths.includes(location.pathname);
+
   return !loading ? (
     <ThemeProvider value={{ themeMode, lightTheme, darkTheme }}>
       <div className="min-h-screen flex flex-col content-between bg-white">
         <div className="w-full block">
-          <Header />
+          {!shouldExcludeLayout && <Header />}
           <main>
             <Outlet />
           </main>
-          <Footer />
+          {!shouldExcludeLayout && <Footer />}
         </div>
       </div>
     </ThemeProvider>

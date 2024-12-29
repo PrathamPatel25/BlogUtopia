@@ -78,11 +78,11 @@ const router = createBrowserRouter([
         path: "post/:postid",
         element: <Post />,
       },
-      {
-        path: "*",
-        element: <NotFound />,
-      },
     ],
+  },
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ]);
 
