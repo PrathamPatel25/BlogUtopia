@@ -3,7 +3,7 @@
 ## Live Demo
 
 Explore BlogUtopia live:  
-🔗 **[BlogUtopia Live Demo](blog-utopia.vercel.app)**
+🔗 **[BlogUtopia Live Demo](https://blog-utopia.vercel.app/)**
 
 ---
 
