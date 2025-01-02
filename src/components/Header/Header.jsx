@@ -44,7 +44,6 @@ export default function Header() {
     },
   ];
 
-  // Disable body scroll when menu is open
   useEffect(() => {
     if (menuOpen) {
       document.body.style.overflow = "hidden";
@@ -53,22 +52,20 @@ export default function Header() {
     }
 
     return () => {
-      document.body.style.overflow = "auto"; // Cleanup on component unmount
+      document.body.style.overflow = "auto";
     };
   }, [menuOpen]);
 
   return (
-    <header className="py-3 shadow text-black dark:text-white h-16">
+    <header className="py-3 shadow h-16 dark:text-white dark:bg-gray-900">
       <Container>
         <nav className="flex items-center justify-between">
-          {/* Logo */}
           <div className="mr-4">
             <Link to="/">
               <Logo width="70px" />
             </Link>
           </div>
 
-          {/* Hamburger Icon */}
           <div className="block md:hidden">
             <button
               onClick={() => setMenuOpen(!menuOpen)}
@@ -83,7 +80,6 @@ export default function Header() {
             </button>
           </div>
 
-          {/* Mobile Menu Overlay */}
           {menuOpen && (
             <div
               className="md:hidden fixed inset-0 bg-black bg-opacity-50"
@@ -92,7 +88,6 @@ export default function Header() {
             />
           )}
 
-          {/* Navigation Links */}
           <ul
             className={`fixed top-0 right-0 h-screen md:h-auto bg-slate-100 shadow-lg transform ${
               menuOpen

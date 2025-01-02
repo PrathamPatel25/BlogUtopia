@@ -5,7 +5,6 @@ import appwriteService from "../../appwrite/config";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Loader from "../../pages/Loader";
-import Grid from "../Grid";
 
 export default function PostForm({ post }) {
   const [loading, setLoading] = useState(true);
@@ -80,14 +79,14 @@ export default function PostForm({ post }) {
   };
 
   return (
-    <Grid>
+    <>
       <div className="min-h-screen py-6 sm:py-8 px-0 sm:px-6 lg:px-8">
         {loading ? (
           <div className="flex justify-center items-center min-h-[60vh]">
             <Loader />
           </div>
         ) : (
-          <div className="max-w-6xl mx-auto">
+          <div className="max-w-6xl mx-aut">
             <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-4 sm:p-6 lg:p-8">
               <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
                 {post ? "Edit Post" : "Create New Post"}
@@ -95,7 +94,6 @@ export default function PostForm({ post }) {
 
               <form onSubmit={handleSubmit(submit)} className="space-y-6">
                 <div className="flex flex-col lg:flex-row gap-6">
-                  {/* Main Content Section */}
                   <div className="flex-1 space-y-6">
                     <div className="space-y-2">
                       <Input
@@ -116,7 +114,6 @@ export default function PostForm({ post }) {
                     </div>
                   </div>
 
-                  {/* Sidebar Section */}
                   <div className="w-full lg:w-80 space-y-6">
                     <div className="space-y-4">
                       <div className="relative">
@@ -173,6 +170,6 @@ export default function PostForm({ post }) {
           </div>
         )}
       </div>
-    </Grid>
+    </>
   );
 }

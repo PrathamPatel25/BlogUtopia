@@ -5,7 +5,7 @@ import { login } from "../store/authSlice";
 import { Button, Input, Logo } from "./index.js";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
-import Grid from "./Grid"; // Import the Grid component
+import Grid from "./Grid";
 
 function Signup() {
   const navigate = useNavigate();

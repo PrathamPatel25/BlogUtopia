@@ -5,7 +5,6 @@ import { Button, Container } from "../components";
 import parse from "html-react-parser";
 import { useSelector } from "react-redux";
 import Loader from "./Loader";
-import Grid from "../components/Grid";
 
 export default function Post() {
   const [post, setPost] = useState(null);
@@ -42,7 +41,7 @@ export default function Post() {
   };
 
   return (
-    <Grid>
+    <>
       {loading ? (
         <div className="flex justify-center items-center min-h-screen">
           <Loader />
@@ -51,9 +50,7 @@ export default function Post() {
         <div className="bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 min-h-screen py-4 sm:py-8 dark:text-white transition-colors duration-300">
           <Container>
             <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 max-w-7xl mx-auto px-4">
-              {/* Main Post Content */}
               <div className="w-full lg:w-2/3 space-y-4 sm:space-y-6">
-                {/* Featured Image and Title */}
                 <div className="relative rounded-xl sm:rounded-2xl overflow-hidden shadow-lg sm:shadow-2xl transition-transform hover:scale-[1.01] duration-300">
                   <img
                     src={appwriteService.getFilePreview(post.featuredImage)}
@@ -67,7 +64,6 @@ export default function Post() {
                   </div>
                 </div>
 
-                {/* Author Info and Actions */}
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between py-3 sm:py-4 border-b dark:border-gray-700 gap-4 sm:gap-0">
                   <div className="flex items-center space-x-3">
                     <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center">
@@ -102,13 +98,11 @@ export default function Post() {
                   )}
                 </div>
 
-                {/* Post Content */}
                 <div className="prose prose-sm sm:prose-base lg:prose-lg dark:prose-invert max-w-none px-1 sm:px-0">
                   {parse(post.content)}
                 </div>
               </div>
 
-              {/* Other Posts Sidebar */}
               <div className="w-full lg:w-1/3 mt-6 lg:mt-0">
                 <div className="lg:sticky lg:top-4">
                   <h2 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4 dark:text-gray-200 px-1 sm:px-0">
@@ -154,6 +148,6 @@ export default function Post() {
           </Container>
         </div>
       ) : null}
-    </Grid>
+    </>
   );
 }

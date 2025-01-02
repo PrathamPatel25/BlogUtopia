@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Container, PostCard } from "../components";
 import appwriteService from "../appwrite/config";
 import Loader from "./Loader";
-import Grid from "../components/Grid";
 
 export default function AllPosts() {
   const [posts, setPosts] = useState([]);
@@ -48,8 +47,8 @@ export default function AllPosts() {
   }
 
   return (
-    <Grid>
-      <div className="py-8 sm:py-12">
+    <>
+      <div className="py-8 sm:py-12 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
         <Container>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
@@ -129,6 +128,6 @@ export default function AllPosts() {
           </div>
         </Container>
       </div>
-    </Grid>
+    </>
   );
 }

@@ -91,7 +91,7 @@ Start the development server:
 npm run dev
 ```
 
-Access the app at `http://localhost:3000`.
+Access the app at `http://localhost:5173`.
 
 ---
 
@@ -113,5 +113,4 @@ VITE_APPWRITE_BUCKET_ID=your_appwrite_bucket_id
 
 For any queries or feedback, please reach out:
 
-- **Email**: prathampatel5044@gmail.com
 - **LinkedIn**: [Profile](https://www.linkedin.com/in/pratham-patel-0920-/)

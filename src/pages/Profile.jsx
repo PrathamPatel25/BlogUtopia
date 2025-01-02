@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import appwriteService from "../appwrite/config";
 import { Container, PostCard } from "../components";
 import Loader from "./Loader";
-import Grid from "../components/Grid";
 
 function Profile() {
   const [posts, setPosts] = useState(null);
@@ -49,8 +48,8 @@ function Profile() {
     posts?.filter((post) => post.status === "inactive").length || 0;
 
   return (
-    <Grid>
-      <div className="w-full px-4 sm:px-6 lg:px-8 mb-10">
+    <>
+      <div className="w-full px-4 sm:px-6 lg:px-8 pb-10 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
         <section className="text-center mb-8">
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-black dark:text-white mb-4">
             Your Posts
@@ -97,7 +96,7 @@ function Profile() {
           )}
         </Container>
       </div>
-    </Grid>
+    </>
   );
 }
 
