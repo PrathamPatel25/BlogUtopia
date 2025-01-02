@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -26,8 +25,7 @@ const objectives = [
   },
   {
     key: "Set Blog Post Status",
-    value:
-      "Allows users to set their blog posts as 'active' or 'inactive' for better content management.",
+    value: "Allows users to set their blog posts as 'active' or 'inactive'.",
     icon: "🔄",
   },
   {
@@ -43,8 +41,7 @@ const objectives = [
   },
   {
     key: "Responsive Design",
-    value:
-      "Delivers a smooth and consistent experience across all device types and screen sizes.",
+    value: "Delivers a smooth and consistent experience across all devices.",
     icon: "📱",
   },
 ];
@@ -52,37 +49,25 @@ const objectives = [
 function HorizontalScroll() {
   const sectionRef = useRef(null);
   const containerRef = useRef(null);
+  const contentRef = useRef(null);
   const cardsRef = useRef([]);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isScrolling, setIsScrolling] = useState(false);
 
   useEffect(() => {
-    const section = sectionRef.current;
     const container = containerRef.current;
-    const cards = cardsRef.current;
+    const content = contentRef.current;
 
-    gsap.fromTo(
-      cards,
-      {
-        opacity: 0,
-        y: 50,
-      },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        stagger: 0.2,
-        ease: "power3.out",
-      }
-    );
-
-    const tl = gsap.timeline({
+    // Horizontal Scroll with GSAP and ScrollTrigger
+    const scrollTimeline = gsap.to(content, {
+      x: () => -(content.scrollWidth - container.offsetWidth),
+      ease: "none",
       scrollTrigger: {
-        trigger: section,
-        pin: true,
+        trigger: container,
         start: "top top",
-        end: "+=300%",
+        end: () => `+=${content.scrollWidth - container.offsetWidth}`,
         scrub: 1,
+        pin: true,
+        invalidateOnRefresh: true,
         onUpdate: (self) => {
           const progress = self.progress;
           const newIndex = Math.min(
@@ -94,101 +79,72 @@ function HorizontalScroll() {
       },
     });
 
-    tl.to(container, {
-      x: () => -(container.scrollWidth - window.innerWidth + 32),
-      ease: "none",
-    });
+    // Cleanup GSAP animations and ScrollTrigger on unmount
+    return () => {
+      scrollTimeline.kill();
+      ScrollTrigger.killAll();
+    };
+  }, []);
 
-    cards.forEach((card) => {
-      card.addEventListener("mouseenter", () => {
-        if (!isScrolling) {
-          gsap.to(card, {
-            scale: 1.05,
-            duration: 0.3,
-            ease: "power2.out",
-          });
-        }
-      });
+  useEffect(() => {
+    // Mouse move effect for floating objects
+    const handleMouseMove = (event) => {
+      const elements = document.querySelectorAll(".moving-object");
+      elements.forEach((element) => {
+        const rect = element.getBoundingClientRect();
+        const offsetX = (event.clientX - (rect.left + rect.width / 2)) / 50;
+        const offsetY = (event.clientY - (rect.top + rect.height / 2)) / 50;
 
-      card.addEventListener("mouseleave", () => {
-        gsap.to(card, {
-          scale: 1,
+        gsap.to(element, {
+          x: offsetX,
+          y: offsetY,
           duration: 0.3,
           ease: "power2.out",
         });
       });
-    });
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
 
     return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      window.removeEventListener("mousemove", handleMouseMove);
     };
-  }, [isScrolling]);
-
-  const scrollTo = (index) => {
-    setIsScrolling(true);
-    const section = sectionRef.current;
-    const progress = index / (objectives.length - 1);
-
-    gsap.to(window, {
-      duration: 1,
-      scrollTo: {
-        y: section.offsetTop + section.offsetHeight * progress,
-        autoKill: false,
-      },
-      ease: "power2.inOut",
-      onComplete: () => {
-        setIsScrolling(false);
-        setActiveIndex(index);
-      },
-    });
-  };
+  }, []);
 
   return (
     <section
       ref={sectionRef}
       className="min-h-screen overflow-hidden bg-gradient-to-b from-white to-blue-50 dark:from-gray-800 dark:to-gray-900"
     >
-      <div className="max-w-screen-xl mx-auto px-4 py-12">
-        <h2 className="text-4xl font-bold text-center mb-12 text-blue-900 opacity-0">
+      <div
+        ref={containerRef}
+        className="max-w-screen-xl mx-auto px-4 py-12 relative"
+      >
+        <h2 className="text-4xl font-bold text-center mb-12 text-blue-900 dark:text-white">
           Key Features
         </h2>
 
-        <div className="relative">
-          <div ref={containerRef} className="flex gap-6 py-8">
-            {objectives.map((objective, index) => (
-              <div
-                key={index}
-                ref={(el) => (cardsRef.current[index] = el)}
-                className={`flex-shrink-0 w-[280px] sm:w-[400px] md:w-[500px] lg:w-[600px] 
-                  bg-white rounded-xl shadow-lg ${
-                    activeIndex === index ? "ring-2 ring-blue-500" : ""
-                  }`}
-              >
-                <div className="p-6 h-full flex flex-col">
-                  <div className="bg-gradient-to-r from-blue-900 to-blue-700 text-white p-4 rounded-lg mb-4">
-                    <div className="text-4xl mb-2">{objective.icon}</div>
-                    <h3 className="text-xl sm:text-2xl font-bold">
-                      {objective.key}
-                    </h3>
-                  </div>
-                  <p className="text-gray-600 flex-grow">{objective.value}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="fixed bottom-8 left-1/2 -translate-x-1/2 flex justify-center gap-2 z-10">
-            {objectives.map((_, index) => (
-              <button
-                key={index}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  activeIndex === index ? "bg-blue-900 w-4" : "bg-gray-300"
+        <div ref={contentRef} className="flex gap-6 py-8">
+          {objectives.map((objective, index) => (
+            <div
+              key={index}
+              ref={(el) => (cardsRef.current[index] = el)}
+              className={`flex-shrink-0 w-[280px] sm:w-[400px] md:w-[500px] lg:w-[600px] 
+                bg-white rounded-xl shadow-lg moving-object ${
+                  activeIndex === index ? "ring-2 ring-blue-500" : ""
                 }`}
-                onClick={() => scrollTo(index)}
-                aria-label={`Go to slide ${index + 1}`}
-              />
-            ))}
-          </div>
+            >
+              <div className="p-6 h-full flex flex-col">
+                <div className="bg-gradient-to-r from-blue-900 to-blue-700 text-white p-4 rounded-lg mb-4">
+                  <div className="text-4xl mb-2">{objective.icon}</div>
+                  <h3 className="text-xl sm:text-2xl font-bold">
+                    {objective.key}
+                  </h3>
+                </div>
+                <p className="text-gray-600 flex-grow">{objective.value}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>

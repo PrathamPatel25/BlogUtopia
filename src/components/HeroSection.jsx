@@ -64,7 +64,7 @@ const HeroSection = ({
     return () => {
       ctx.revert();
     };
-  }, [heroRef]);
+  }, []);
 
   const features = [
     {
